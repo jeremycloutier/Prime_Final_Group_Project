@@ -247,8 +247,13 @@ function getAvgSalary(tempCert, allRows, startDate, endDate){
     var tempCalculatedSalary = {};
 
     if (isNaN(startDate) || isNaN(endDate)) return null;
-
-    for (var i = 0; i < allRows.length;i++){
+    //check if no checkboxes are selected
+    if (tempCert && tempCert.length == 0){
+      tempCalculatedSalary.avgWage = 0;
+      tempCalculatedSalary.count = 0;
+      //if at least one checkbox is selected
+    } else {
+      for (var i = 0; i < allRows.length;i++){
         var classStart = Date.parse(allRows[i].classStart);
         if (isNaN(classStart)) continue;
         //check to stay within time range selected
@@ -268,9 +273,14 @@ function getAvgSalary(tempCert, allRows, startDate, endDate){
             }
         }
     }
+    if (count == 0){
+      tempCalculatedSalary.avgWage = 0;
+      tempCalculatedSalary.count = count;
+    }else {
     tempCalculatedSalary.avgWage = (sumOfWages/count).toFixed(2);
     tempCalculatedSalary.count = count;
-
+    }
+  }
     return (tempCalculatedSalary);
 }
 
