@@ -13,7 +13,7 @@ var sheetId = null;
 var IdObject = null;
 smartsheet.sheets.listSheets()
   .then(function(data){
-    sheetId = data.data[1].id;
+    sheetId = data.data[0].id;
     IdObject = { id: sheetId };
   }).catch(function(error){
     console.log(error);
